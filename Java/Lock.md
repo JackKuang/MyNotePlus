@@ -89,6 +89,117 @@
 
 ### 3.1 数据库锁
 
+* Mysql创建一张锁表，并对锁ID增加唯一性约束。获取锁的时候插入一条记录，删除锁的时候删除该记录。
+
+* 悲观锁：执行操作之前先获取锁
+
+  ```java
+  
+  
+  /**
+   * 数据库分布式锁
+   * 增加synchronized只能避免本地不会造成锁冲突，分布式依旧会冲突。
+   * 但是redis分布式锁却不会
+   *
+   * @author Jack
+   * @date 2019/5/6 11:19
+   */
+  @Service("dbLock")
+  public class DBLock implements ILock {
+  
+      /**
+       * init Sql
+       * CREATE TABLE `db_lock` (
+       *   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+       *   `lock_key` varchar(255) DEFAULT NULL COMMENT 'Key',
+       *   `lock_value` varchar(255) DEFAULT NULL COMMENT 'Value',
+       *   `create_time` datetime DEFAULT NULL,
+       *   PRIMARY KEY (`id`),
+       *   UNIQUE KEY `u_lock_key` (`lock_key`) USING BTREE COMMENT '唯一索引'
+       * ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+       */
+      @Resource
+      DbLockMapper dbLockMapper;
+  
+      @Override
+      public synchronized boolean lock(String key, String value, Long time) {
+          try {
+              DbLock lock = new DbLock(key, value);
+              int insertNum = dbLockMapper.insert(lock);
+              if (insertNum > 0) {
+                  return true;
+              }
+          } catch (Exception e) {
+          }
+          return false;
+      }
+  
+      @Override
+      public synchronized boolean unlock(String key, String value) {
+          try {
+              QueryWrapper<DbLock> wrapper = new QueryWrapper<DbLock>();
+              wrapper.lambda().eq(DbLock::getLockKey, key)
+                      .eq(DbLock::getLockValue, value);
+              int updateNum = dbLockMapper.delete(wrapper);
+              if (updateNum > 0) {
+                  return true;
+              }
+          } catch (Exception e) {
+          }
+          return false;
+      }
+  }
+  ```
+
+* 乐观锁：
+
+  * 增加一个版本号的机制，先获取版本号，然后对版本号进行update(+1)操作，在提交更新前检查当前版本号与数据库版本号一致。
+
 ### 3.2 Redis锁
 
-### 3.3 Zookeerp锁
+* 由于Redis操作具有原子性，所以对每个锁操作，都保证前后顺序，同时也可以控制并发。
+
+  ```java
+  
+  /**
+   * 数据库分布式锁（非Lua脚本处理）
+   * FIXME Jackson2JsonRedisSerializer保存在redis中的时候，会多出一个双引号
+   *
+   * @author Jack
+   * @date 2019/5/6 11:19
+   */
+  @Service("redisLock")
+  public class RedisLock implements ILock {
+  
+      @Autowired
+      private RedisTemplate redisTemplate;
+  
+      private static final String RELEASE_LOCK_SCRIPT = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+  
+      private static final Long SUCCESS = 1L;
+  
+  
+      @Override
+      public boolean lock(String key, String value, Long time) {
+          System.out.println("Redis lock:" + key);
+          return redisTemplate.opsForValue().setIfAbsent(key, value, time, TimeUnit.MILLISECONDS);
+  //        String script = "if redis.call('setNx',KEYS[1],ARGV[1]) then if redis.call('get',KEYS[1])==ARGV[1] then return redis.call('expire',KEYS[1],ARGV[2]) else return 0 end end";
+  //        RedisScript<Long> redisScript = new DefaultRedisScript<>(script, Long.class);
+  //        Long result = redisTemplate.execute(redisScript, Collections.singletonList(key),value,time);
+  //        return 1L == result;
+      }
+  
+      @Override
+      public boolean unlock(String key, String value) {
+          RedisScript<Long> luaScript = new DefaultRedisScript<>(RELEASE_LOCK_SCRIPT, Long.class);
+          Object result = redisTemplate.execute(luaScript, Collections.singletonList(key), value);
+          return SUCCESS.equals(result);
+      }
+  }
+  ```
+
+* redission分布式锁的实现
+
+### 3.3 Zookeeper锁
+
+* 
