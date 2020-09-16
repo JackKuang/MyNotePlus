@@ -33,7 +33,7 @@
 | volatile和synchronized特点 | [volatile和synchronized特点](./Java/VolatileAndSynchronized.md) | 2020-09-03 |
 | 锁                         | [锁](./Java/Lock.md)                                         | 2020-09-10 |
 | Netty                      |                                                              |            |
-| BitMap实现                 | [ BitMap](./Java/BitMap.md)                                  | 2020-09-13 |
+| BitMap实现                 | [BitMap](./Java/BitMap.md)                                   | 2020-09-13 |
 | Object有哪些方法           | [Object](./Java/Object.md)                                   | 2020-09-14 |
 
 ## 数据库
