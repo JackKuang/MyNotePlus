@@ -55,7 +55,7 @@
 | Flink流流JOIN           | [Flink Streaming Join](./BigData/FlinkStreamingJoin.md)  | 2020-09-14 |
 | Flink精确一次语义       | [Flink精确一次](./BigData/FlinkExactlyOnce.md)           | 2020-09-13 |
 | Flink端到端精确一次语义 | [Flink端到端精确一次](./BigData/FlinkSinkExactlyOnce.md) | 2020-09-15 |
-| Kylin精确去重与留存分析 |                                                          |            |
+| Kylin精确去重与留存分析 | [](./Bigdata/kylinRetention.md)                          | 2020-09-17 |
 
 
 
