@@ -210,3 +210,179 @@ HashMap里面实现了一个静态内部类Entry，其重要的属性有hash、k
 
 #### 1.4.4 GET机制
 
+1. get(key)方法时获取key的hash值。
+2. 计算hash&(n-1)得到在链表数组中国中的位置first=tab[hash&(n-1)]。
+3. 先判断first的key是否与参数key相等，如果相等说明值找到了。
+4. 判断first是否是TreeNode，如果是则根据树查找
+5. 否则遍历链表，遍历查找key。
+
+```java
+
+    public V get(Object key) {
+        Node<K,V> e;
+        return (e = getNode(hash(key), key)) == null ? null : e.value;
+    }
+
+    /**
+     * Implements Map.get and related methods.
+     *
+     * @param hash hash for key
+     * @param key the key
+     * @return the node, or null if none
+     */
+    final Node<K,V> getNode(int hash, Object key) {
+        Node<K,V>[] tab; Node<K,V> first, e; int n; K k;
+        if ((tab = table) != null && (n = tab.length) > 0 &&
+            (first = tab[(n - 1) & hash]) != null) {
+          	// 检查第一个
+            if (first.hash == hash && // always check first node
+                ((k = first.key) == key || (key != null && key.equals(k))))
+                return first;
+            if ((e = first.next) != null) {
+              // 检查树
+                if (first instanceof TreeNode)
+                    return ((TreeNode<K,V>)first).getTreeNode(hash, key);
+              // 检查链表
+                do {
+                    if (e.hash == hash &&
+                        ((k = e.key) == key || (key != null && key.equals(k))))
+                        return e;
+                } while ((e = e.next) != null);
+            }
+        }
+        return null;
+    }
+
+```
+
+#### 1.4.5 RESIZE机制
+
+构造Hash表时，如果不指明初始大小，默认大小为16（即Node数组大小为16），如果Node[]数组中的元素达到(填充比*Node.length)，则会进行扩容，把HashMap的大小变为原来2倍大小，整个扩容时间很耗时。
+
+```java
+// 初始化或者扩容时都会调用
+    /**
+     * Initializes or doubles table size.  If null, allocates in
+     * accord with initial capacity target held in field threshold.
+     * Otherwise, because we are using power-of-two expansion, the
+     * elements from each bin must either stay at same index, or move
+     * with a power of two offset in the new table.
+     *
+     * @return the table
+     */
+    final Node<K,V>[] resize() {
+        Node<K,V>[] oldTab = table;
+        int oldCap = (oldTab == null) ? 0 : oldTab.length;
+        int oldThr = threshold;
+      	// newCap 新的数量大小
+      	// newThr 新的发起扩容数量
+        int newCap, newThr = 0;
+      	// 旧表长度大于0
+        if (oldCap > 0) {
+            if (oldCap >= MAXIMUM_CAPACITY) {
+                threshold = Integer.MAX_VALUE;
+                return oldTab;
+            }
+            else if ((newCap = oldCap << 1) < MAXIMUM_CAPACITY &&
+                     oldCap >= DEFAULT_INITIAL_CAPACITY)
+              // 新表长度扩容为2倍
+                newThr = oldThr << 1; // double threshold
+        }
+        else if (oldThr > 0) // initial capacity was placed in threshold
+          // 扩容大小已经在 oldThr里面了
+            newCap = oldThr;
+        else {               // zero initial threshold signifies using defaults
+          // 大小为0，那么就需要初始化
+            newCap = DEFAULT_INITIAL_CAPACITY;
+            newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);
+        }
+        if (newThr == 0) {
+            float ft = (float)newCap * loadFactor;
+            newThr = (newCap < MAXIMUM_CAPACITY && ft < (float)MAXIMUM_CAPACITY ?
+                      (int)ft : Integer.MAX_VALUE);
+        }
+        threshold = newThr;
+        @SuppressWarnings({"rawtypes","unchecked"})
+      	// 定义新的数组
+        Node<K,V>[] newTab = (Node<K,V>[])new Node[newCap];
+        table = newTab;
+        if (oldTab != null) {
+          	// 扩容，迁移数据
+            for (int j = 0; j < oldCap; ++j) {
+                Node<K,V> e;
+                if ((e = oldTab[j]) != null) {
+                    oldTab[j] = null;
+                    // 空值存放
+                    if (e.next == null)
+                        newTab[e.hash & (newCap - 1)] = e;
+                  	// 树存放
+                    else if (e instanceof TreeNode)
+                        ((TreeNode<K,V>)e).split(this, newTab, j, oldCap);
+                   // 链表存放
+                    else { // preserve order
+                        // 存放在j
+                        Node<K,V> loHead = null, loTail = null;
+                        // 存放在j + oldCap
+                        Node<K,V> hiHead = null, hiTail = null;
+                        Node<K,V> next;
+                        do {
+                            next = e.next;
+                          	// 偶数数位置
+                            if ((e.hash & oldCap) == 0) {
+                                if (loTail == null)
+                                    loHead = e;
+                                else
+                                    loTail.next = e;
+                                loTail = e;
+                            }
+                          	// 奇数位置
+                            else {
+                                if (hiTail == null)
+                                    hiHead = e;
+                                else
+                                    hiTail.next = e;
+                                hiTail = e;
+                            }
+                        } while ((e = next) != null);
+                        if (loTail != null) {
+                            loTail.next = null;
+                            newTab[j] = loHead;
+                        }
+                        if (hiTail != null) {
+                            hiTail.next = null;
+                            newTab[j + oldCap] = hiHead;
+                        }
+                    }
+                }
+            }
+        }
+        return newTab;
+    }
+```
+
+
+
+
+
+## 二、对比
+
+### 2.1 HashTable
+
+HashTable底层也同样使用数组+链表实现，无论是key还是value都不能为null，线程安全。
+
+HashTable实现线程安全的方式在与修改数据时会通过sychronized会锁住整个HashTable，效率低下，查看源码的时候，就可以看到有大量的方法使用了sychronized。
+
+* HashMap和HashTable都实现了Map接口，但是HashTable的实现是基于Dictionary抽象类（定义了一些键值对数据）的。
+* HashMap的迭代器Iterator是fail-fast迭代器，而HashTable的迭代器Iterator是fail-safe。fail-safe是基于容器的一个克隆，所以允许在遍历时对容器中的数据进行修改，但是fail-fast不允许，一旦发现容器中的数据倍修改了，就会抛出ConcurrentModificationException异常（ArrayList也同样会有）。
+* 计算index方法不一样：hashtable：index = (hash & 0x7FFFFFFF) % tab.length； hashmap：index = hash & (tab.length – 1)。（这也导致了两个集合初始大小不一样）
+* HashTable初始大小为11（底层的Hash算法不一致），扩容为原来的2倍+1，而HashMap初始大小为16，扩容为原来的2倍。
+
+### 2.2 ConcurrentHashMap
+
+ConcurrentHashMap底层采用分段的数组+链表，线程安全。
+
+通过把整个Map分为N个Segment，可以提供相同的线程安全，但是效率提升了N倍，默认提升了16倍。（读操作不加锁，由于HashEntry的value变量时volatile的，也能保证读取到最新的值）。
+
+有些方法需要跨段，比如size()和containsValue()，他们kennel需要锁整个表而不仅仅是某个段，这需要按顺序锁定所有段，操作完毕后，有按照顺序释放所有段的锁。
+
+扩容：段内扩容（段内元素超过该段对应的Entry数组长度的75%触发扩容，不会对整个Map进行扩容），插入前检测需不需要扩容，有效避免了无法扩容。s
