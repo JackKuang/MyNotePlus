@@ -49,10 +49,10 @@
 
 | 内容                    | 地址                                                     | 完成日期   |
 | ----------------------- | -------------------------------------------------------- | ---------- |
-| MapReduce原理+Suffle    | [MapReduce](./BigData/MapReduce.md)                      | TBD        |
+| MapReduce原理+Suffle    | [MapReduce](./BigData/MapReduce.md)                      | 2020-09-22 |
 | 数据中台                | [数据中台](./BigData/DataCenter.md)                      | DOING      |
 | 大数据层次              | [大数据层次](./BigData/Level.md)                         | 2020-09-13 |
-| 大数据建模              |                                                          |            |
+| 大数据建模              | [大数据建模](./BigData/BigDataModeling.md)               | 2020-09-22 |
 | Flink流流JOIN           | [Flink Streaming Join](./BigData/FlinkStreamingJoin.md)  | 2020-09-14 |
 | Flink精确一次语义       | [Flink精确一次](./BigData/FlinkExactlyOnce.md)           | 2020-09-13 |
 | Flink端到端精确一次语义 | [Flink端到端精确一次](./BigData/FlinkSinkExactlyOnce.md) | 2020-09-15 |
@@ -69,5 +69,5 @@
 | --------------------- | ----------------------------------------------- | ---- | -------- |
 | SpringBoot高并发      | 如何提高Web的高并发请求？                       |      | TBD      |
 | Kafka数据延迟处理方案 | 线上事故导致Kafka消费延迟，如何快速消费并恢复？ |      | TBD      |
-|                       |                                                 |      |          |
+| Flink CEP             |                                                 |      |          |
 
