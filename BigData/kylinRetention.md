@@ -72,7 +72,7 @@ select * from log_table where log_type = '下载' and log_type = '注册' and ui
 
 ### 3.1 创建一批数据
 
-* 首先我们需要创建一批数据，这里的数据，我们使用Python来创建以下文本数据。
+* 首先我们需要创建一批数据，这里的数据，我们使用Python来创建以下文本数据，定义为文件名为data.txt
 
   ```python
   import random
@@ -98,7 +98,121 @@ select * from log_table where log_type = '下载' and log_type = '注册' and ui
           print(txt_format.format(uid, c, 'PAY', d), file=data)
   
   data.close()
+  ```
+
+### 3.2 创建Hadoop生态圈服务
+
+* 首先我们需要创建一套Hadoop生态圈服务、以及Kylin相关的服务。
+
+* 这里，我们使用Docker来构建
+
+  ```sh
+  docker pull apachekylin/apache-kylin-standalone:4.0.0-alpha
+  docker rm -f kylin
+  docker run -d -m 8G --name kylin -p 7070:7070 -p 8088:8088 -p 50070:50070 -p 8032:8032 -p 8042:8042 -p 2181:2181 apachekylin/apache-kylin-standalone:4.0.0-alpha
+  ```
+
+* 这是可以访问一下页面查看下各个服务：
+  * HDFS：http://localhost:50070/dfshealth.html#tab-overview
+  * Yarn：http://localhost:8088/cluster
+  * Kylin：http://localhost:7070/kylin
+
+### 3.3 初始化Hive
+
+* 现在我们已经有了各种服务集群，以及数据文件， 那么我们需要倒入数据了。
+
+* 拷贝文件：
+
+  ```sh
+  docker cp /Users/jack/Documents/PythonProject/data.txt kylin:/data.txt
+  ```
+
+* 初始化HDFS
+
+  ```sh
+  docker exec -it kylin hive
   
+  # hive
+  create table if not exists user_action(
+  uid string,
+  channel string,
+  action string,
+  action_date string
+  )
+  row format delimited fields terminated by '\t';
+  
+  # copy data
+  load data local inpath '/data.txt' into table user_action;
+  
+  # sql
+  select * from user_action limit 1000;
+  ```
+
+### 3.4 Kylin初始化配置
+
+* kylin初始化配置，这里就不做过多的讲解了。
+
+* 页面维度配置
+
+  ![image-20201004144832065](http://img.hurenjieee.com/uPic/image-20201004144832065.png)
+
+* 页面度量配置
+
+  ![image-20201004144901335](http://img.hurenjieee.com/uPic/image-20201004144901335.png)
+
+* 触发任务的build
+
+### 3.5 数据对比
+
+* 总用户数据
+
+  ```sql
+  # hive
+  select count(uid),count(distinct uid) from user_action
+  
+  # kylin
+  select count(uid),count(distinct uid) from user_action
+  
+  # result 
+  29993   9999
+  ```
+
+* 渠道数据计算
+
+  ```sql
+  # hive
+  select count(uid),count(distinct uid) from user_action where channel= 'APP01'
+  
+  # kylin
+  select count(uid),count(distinct uid) from user_action where channel= 'APP01'
+  
+  # result
+  4987    1652
+  ```
+
+* 转化率
+
+  ```
+  # hive
+  select a.channel,count(distinct a.uid)
+  from (
+   select channel,uid from user_action where action = 'DOWNLOAD'
+  ) a
+  inner join (
+   select uid from user_action where action = 'INIT'
+  ) b on a.uid = b.uid
+  group by a.channel
+  
+  # kylin
+  select channel,intersect_count(uid,action,array['INIT','DOWNLOAD']) from user_action where action in ('INIT','DOWNLOAD') group by channel
+  
+  
+  APP01   1335
+  APP02   1323
+  APP03   1351
+  APP04   1317
+  APP05   1362
+  APP06   1309
   ```
 
   
