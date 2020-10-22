@@ -10,7 +10,36 @@
   * 会从基础只是开始，再到后面的Java开发、大数据开发相关，后面的主要是工作相关的内容。
   * 笔记的形式以全手打为主，拒绝拷贝文字（手打一遍加深理解）。
 
-## 基础知识
+
+
+## 基础内容
+
+### Java
+
+| 内容  | 地址                                  | 完成日期 |
+| ----- | ------------------------------------- | -------- |
+| Netty | [Netty](./Basic/Java/Netty/README.md) | DOING    |
+
+### 大数据
+
+| 技术栈    | 用途              | 内容                                                 |
+| --------- | ----------------- | ---------------------------------------------------- |
+| Hadoop    | 分布式存储        | [Hadoop入门](./Basic/Bigdata/Hadoop/README.md)       |
+| Yarn      | 分布式任务调度    | [Yarn入门](./Basic/Bigdata/Yarn/README.md)           |
+| MapReduce | 分布式计算        | [MapReduce入门](./Basic/Bigdata/MapReduce/README.md) |
+| Hive      | 数据仓库          | [Hive入门](./Basic/Bigdata/Hive/README.md)           |
+| HBase     | Key-Value数据库   | [HBase入门](./Basic/Bigdata/HBase/README.md)         |
+| Zookeeper | 分布式协调中心    | [Zookeeper入门](./Basic/Bigdata/Zookeeper/README.md) |
+| Spark     | 分布式计算        | [Spark入门](./Basic/Bigdata/Spark/README.md)         |
+| Kafka     | 分布式消息系统    | [Kafka入门](./Basic/Bigdata/Kafka/README.md)         |
+| Flink     | 分布式计算        | [Flink入门](./Basic/Bigdata/Flink/README.md)         |
+| Presto    | 分布式SQL查询引擎 | [Presto入门](./Basic/Bigdata/Presto/README.md)       |
+
+
+
+## 进阶内容
+
+### Linux
 
 | 内容              | 地址                                 | 完成日期   |
 | ----------------- | ------------------------------------ | ---------- |
@@ -18,7 +47,7 @@
 
 
 
-## Java
+### Java
 
 | 内容                         | 地址                                                         | 完成日期   |
 | ---------------------------- | ------------------------------------------------------------ | ---------- |
@@ -37,8 +66,9 @@
 | Object有哪些方法             | [Object](./Java/Object.md)                                   | 2020-09-14 |
 | HashMap                      | [HashMap](./Java/HashMap.md)                                 | 2020-09-17 |
 | Java中如何动态创建接口的实现 |                                                              |            |
+| Netty                        | [Netty](./Java/Netty/README.md)                              |            |
 
-## 数据库
+### 数据库
 
 | 内容           | 地址                                        | 完成日期   |
 | -------------- | ------------------------------------------- | ---------- |
@@ -46,7 +76,7 @@
 |                |                                             |            |
 |                |                                             |            |
 
-## 大数据
+### 大数据
 
 | 内容                    | 地址                                                     | 完成日期   |
 | ----------------------- | -------------------------------------------------------- | ---------- |
