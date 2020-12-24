@@ -16,9 +16,10 @@
 
 ### Java
 
-| 内容  | 地址                                  | 完成日期 |
-| ----- | ------------------------------------- | -------- |
-| Netty | [Netty](./Basic/Java/Netty/README.md) | DOING    |
+| 内容         | 地址                                              | 完成日期 |
+| ------------ | ------------------------------------------------- | -------- |
+| Netty        | [Netty](./Basic/Java/Netty/README.md)             | PAUSE    |
+| SpringClould | [SpringCloud](./Basic/Java/SpringCloud/README.md) | DOING    |
 
 ### 大数据
 
@@ -41,9 +42,10 @@
 
 ### Linux
 
-| 内容              | 地址                                 | 完成日期   |
-| ----------------- | ------------------------------------ | ---------- |
-| Linux查看资源占用 | [Linux资源占用](./Linux/Resource.md) | 2020-09-05 |
+| 内容                         | 地址                                 | 完成日期   |
+| ---------------------------- | ------------------------------------ | ---------- |
+| Linux查看资源占用            | [Linux资源占用](./Linux/Resource.md) | 2020-09-05 |
+| sudo执行命令时环境变量被重置 |                                      |            |
 
 
 
@@ -61,18 +63,18 @@
 | BIO/NIO/AIO                  | [IO](./Java/IO.md)                                           | 2020-09-10 |
 | volatile和synchronized特点   | [volatile和synchronized特点](./Java/VolatileAndSynchronized.md) | 2020-09-03 |
 | 锁                           | [锁](./Java/Lock.md)                                         | 2020-09-10 |
-| Netty                        |                                                              |            |
 | BitMap实现                   | [BitMap](./Java/BitMap.md)                                   | 2020-09-13 |
 | Object有哪些方法             | [Object](./Java/Object.md)                                   | 2020-09-14 |
 | HashMap                      | [HashMap](./Java/HashMap.md)                                 | 2020-09-17 |
 | Java中如何动态创建接口的实现 |                                                              |            |
+| Oracle JDBC连接问题          | [连接异常](./Java/OracleJdbcConnectionError.md)              | 2020-12-21 |
+| Arthas                       | [Java调试利器Arthas](./Java/Arthas/Arthas.md)                | 2020-12-24 |
 
 ### 数据库
 
 | 内容           | 地址                                        | 完成日期   |
 | -------------- | ------------------------------------------- | ---------- |
 | InnoDB与MyISAM | [InnoDB与MyISAM](./Database/MysqlEngine.md) | 2020-09-11 |
-|                |                                             |            |
 |                |                                             |            |
 
 ### 大数据
@@ -89,7 +91,6 @@
 | Kylin精确去重与留存分析 | [Kylin精确去重与留存分析](./Bigdata/kylinRetention.md)   | 2020-09-17 |
 | ClickHouse为何快        | [ClickHouse为何快](./Bigdata/ClickHouseWhyQuick.md)      | 2020-09-17 |
 | Flink Async IO          | [Flink Async IO](./Bigdata/FlinkAsyncIO.md)              | 2020-09-24 |
-|                         |                                                          |            |
 |                         |                                                          |            |
 
 
