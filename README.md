@@ -1,4 +1,5 @@
-# MyNotePlus
+# 	MyNotePlus
+
 基础知识、Java、大数据笔记
 
 ## 起因
@@ -42,10 +43,11 @@
 
 ### Linux
 
-| 内容                         | 地址                                 | 完成日期   |
-| ---------------------------- | ------------------------------------ | ---------- |
-| Linux查看资源占用            | [Linux资源占用](./Linux/Resource.md) | 2020-09-05 |
-| sudo执行命令时环境变量被重置 |                                      |            |
+| 内容                         | 地址                                      | 完成日期   |
+| ---------------------------- | ----------------------------------------- | ---------- |
+| Linux查看资源占用            | [Linux资源占用](./Linux/Resource.md)      | 2020-09-05 |
+| sudo执行命令时环境变量被重置 |                                           |            |
+| kill命令无法删除子进程       | [Linux Kill杀进程的问题](./Linux/Kill.md) |            |
 
 
 
@@ -79,19 +81,20 @@
 
 ### 大数据
 
-| 内容                    | 地址                                                     | 完成日期   |
-| ----------------------- | -------------------------------------------------------- | ---------- |
-| MapReduce原理+Suffle    | [MapReduce](./BigData/MapReduce.md)                      | 2020-09-22 |
-| 数据中台                | [数据中台](./BigData/DataCenter.md)                      | DOING      |
-| 大数据层次              | [大数据层次](./BigData/Level.md)                         | 2020-09-13 |
-| 大数据建模              | [大数据建模](./BigData/BigDataModeling.md)               | 2020-09-22 |
-| Flink流流JOIN           | [Flink Streaming Join](./BigData/FlinkStreamingJoin.md)  | 2020-09-14 |
-| Flink精确一次语义       | [Flink精确一次](./BigData/FlinkExactlyOnce.md)           | 2020-09-13 |
-| Flink端到端精确一次语义 | [Flink端到端精确一次](./BigData/FlinkSinkExactlyOnce.md) | 2020-09-15 |
-| Kylin精确去重与留存分析 | [Kylin精确去重与留存分析](./Bigdata/kylinRetention.md)   | 2020-09-17 |
-| ClickHouse为何快        | [ClickHouse为何快](./Bigdata/ClickHouseWhyQuick.md)      | 2020-09-17 |
-| Flink Async IO          | [Flink Async IO](./Bigdata/FlinkAsyncIO.md)              | 2020-09-24 |
-|                         |                                                          |            |
+| 内容                        | 地址                                                         | 完成日期   |
+| --------------------------- | ------------------------------------------------------------ | ---------- |
+| MapReduce原理+Suffle        | [MapReduce](./BigData/MapReduce.md)                          | 2020-09-22 |
+| 数据中台                    | [数据中台](./BigData/DataCenter.md)                          | DOING      |
+| 大数据层次                  | [大数据层次](./BigData/Level.md)                             | 2020-09-13 |
+| 大数据建模                  | [大数据建模](./BigData/BigDataModeling.md)                   | 2020-09-22 |
+| Flink流流JOIN               | [Flink Streaming Join](./BigData/FlinkStreamingJoin.md)      | 2020-09-14 |
+| Flink精确一次语义           | [Flink精确一次](./BigData/FlinkExactlyOnce.md)               | 2020-09-13 |
+| Flink端到端精确一次语义     | [Flink端到端精确一次](./BigData/FlinkSinkExactlyOnce.md)     | 2020-09-15 |
+| Kylin精确去重与留存分析     | [Kylin精确去重与留存分析](./Bigdata/kylinRetention.md)       | 2020-09-17 |
+| ClickHouse为何快            | [ClickHouse为何快](./Bigdata/ClickHouseWhyQuick.md)          | 2020-09-17 |
+| Flink Async IO              | [Flink Async IO](./Bigdata/FlinkAsyncIO.md)                  | 2020-09-24 |
+| ElasticSearch基础入门       | [ElasticSearch入门](./BigData/ElasticSearch.md)              | 2021-01-19 |
+| ElasticSearch的parent-child | [ElasticSearch的parent-child](./BigData/ElasticSearch-parent-child.md) | 2021-01-19 |
 
 
 
