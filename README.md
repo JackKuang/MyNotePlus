@@ -24,18 +24,19 @@
 
 ### 大数据
 
-| 技术栈    | 用途              | 内容                                                 |
-| --------- | ----------------- | ---------------------------------------------------- |
-| Hadoop    | 分布式存储        | [Hadoop入门](./Basic/Bigdata/Hadoop/README.md)       |
-| Yarn      | 分布式任务调度    | [Yarn入门](./Basic/Bigdata/Yarn/README.md)           |
-| MapReduce | 分布式计算        | [MapReduce入门](./Basic/Bigdata/MapReduce/README.md) |
-| Hive      | 数据仓库          | [Hive入门](./Basic/Bigdata/Hive/README.md)           |
-| HBase     | Key-Value数据库   | [HBase入门](./Basic/Bigdata/HBase/README.md)         |
-| Zookeeper | 分布式协调中心    | [Zookeeper入门](./Basic/Bigdata/Zookeeper/README.md) |
-| Spark     | 分布式计算        | [Spark入门](./Basic/Bigdata/Spark/README.md)         |
-| Kafka     | 分布式消息系统    | [Kafka入门](./Basic/Bigdata/Kafka/README.md)         |
-| Flink     | 分布式计算        | [Flink入门](./Basic/Bigdata/Flink/README.md)         |
-| Presto    | 分布式SQL查询引擎 | [Presto入门](./Basic/Bigdata/Presto/README.md)       |
+| 技术栈     | 用途              | 内容                                                   |
+| ---------- | ----------------- | ------------------------------------------------------ |
+| Hadoop     | 分布式存储        | [Hadoop入门](./Basic/Bigdata/Hadoop/README.md)         |
+| Yarn       | 分布式任务调度    | [Yarn入门](./Basic/Bigdata/Yarn/README.md)             |
+| MapReduce  | 分布式计算        | [MapReduce入门](./Basic/Bigdata/MapReduce/README.md)   |
+| Hive       | 数据仓库          | [Hive入门](./Basic/Bigdata/Hive/README.md)             |
+| HBase      | Key-Value数据库   | [HBase入门](./Basic/Bigdata/HBase/README.md)           |
+| Zookeeper  | 分布式协调中心    | [Zookeeper入门](./Basic/Bigdata/Zookeeper/README.md)   |
+| Spark      | 分布式计算        | [Spark入门](./Basic/Bigdata/Spark/README.md)           |
+| Kafka      | 分布式消息系统    | [Kafka入门](./Basic/Bigdata/Kafka/README.md)           |
+| Flink      | 分布式计算        | [Flink入门](./Basic/Bigdata/Flink/README.md)           |
+| Presto     | 分布式SQL查询引擎 | [Presto入门](./Basic/Bigdata/Presto/README.md)         |
+| ClickHouse | OLAP实时分析      | [ClickHouse入门](./Basic/Bigdata/ClickHouse/README.md) |
 
 
 
@@ -43,11 +44,11 @@
 
 ### Linux
 
-| 内容                         | 地址                                      | 完成日期   |
-| ---------------------------- | ----------------------------------------- | ---------- |
-| Linux查看资源占用            | [Linux资源占用](./Linux/Resource.md)      | 2020-09-05 |
-| sudo执行命令时环境变量被重置 |                                           |            |
-| kill命令无法删除子进程       | [Linux Kill杀进程的问题](./Linux/Kill.md) |            |
+| 内容                         | 地址                                                    | 完成日期   |
+| ---------------------------- | ------------------------------------------------------- | ---------- |
+| Linux查看资源占用            | [Linux资源占用](./Linux/Resource.md)                    | 2020-09-05 |
+| sudo执行命令时环境变量被重置 | [sudo执行命令时环境变量被重置](./Linux/SudoResetEnv.md) | 2021-03-16 |
+| kill命令无法删除子进程       | [Linux Kill杀进程的问题](./Linux/Kill.md)               | 2021-03-16 |
 
 
 
@@ -84,15 +85,13 @@
 | 内容                        | 地址                                                         | 完成日期   |
 | --------------------------- | ------------------------------------------------------------ | ---------- |
 | MapReduce原理+Suffle        | [MapReduce](./BigData/MapReduce.md)                          | 2020-09-22 |
-| 数据中台                    | [数据中台](./BigData/DataCenter.md)                          | DOING      |
+| 数据中台                    | [数据中台](./BigData/DataCenter.md)                          |            |
 | 大数据层次                  | [大数据层次](./BigData/Level.md)                             | 2020-09-13 |
 | 大数据建模                  | [大数据建模](./BigData/BigDataModeling.md)                   | 2020-09-22 |
 | Flink流流JOIN               | [Flink Streaming Join](./BigData/FlinkStreamingJoin.md)      | 2020-09-14 |
 | Flink精确一次语义           | [Flink精确一次](./BigData/FlinkExactlyOnce.md)               | 2020-09-13 |
 | Flink端到端精确一次语义     | [Flink端到端精确一次](./BigData/FlinkSinkExactlyOnce.md)     | 2020-09-15 |
-| Kylin精确去重与留存分析     | [Kylin精确去重与留存分析](./Bigdata/kylinRetention.md)       | 2020-09-17 |
-| ClickHouse为何快            | [ClickHouse为何快](./Bigdata/ClickHouseWhyQuick.md)          | 2020-09-17 |
-| Flink Async IO              | [Flink Async IO](./Bigdata/FlinkAsyncIO.md)                  | 2020-09-24 |
+| Kylin精确去重与留存分析     | [Kylin精确去重与留存分析](./Bigdata/kylinRetention.md)       | 2020-09-17 |(./Bigdata/FlinkAsyncIO.md)                  |            |
 | ElasticSearch基础入门       | [ElasticSearch入门](./BigData/ElasticSearch.md)              | 2021-01-19 |
 | ElasticSearch的parent-child | [ElasticSearch的parent-child](./BigData/ElasticSearch-parent-child.md) | 2021-01-19 |
 
@@ -102,7 +101,7 @@
 
 | 内容                  | 简介                                            | 地址 | 完成日期 |
 | --------------------- | ----------------------------------------------- | ---- | -------- |
-| SpringBoot高并发      | 如何提高Web的高并发请求？                       |      | TBD      |
+| SpringBoot高并发      | 如何提高Web的高并发请求？                       |      |          |
 | Kafka数据延迟处理方案 | 线上事故导致Kafka消费延迟，如何快速消费并恢复？ |      | TBD      |
 | Flink CEP             |                                                 |      |          |
 
