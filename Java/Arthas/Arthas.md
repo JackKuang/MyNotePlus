@@ -28,9 +28,7 @@ java -jar arthas-boot.jar
 
 > 如果离线使用Arthas，执行上述命令之后，依然无法启动。
 >
-> 因为Arthas启动需要下载jar包，存放在~/.arthas目录下。
->
-> 如果要调试，同样需要把~/.arthas打包上传到相对应的路径下。
+> 因为Arthas启动需要下载相关jar包，存放在~/.arthas目录下。如果需要调试，则需要把~/.arthas中的内容打包上传到相对应的路径下。
 
 ### 2.1 dashboard
 
@@ -40,7 +38,7 @@ java -jar arthas-boot.jar
 
 *  `thread 1`命令会打印线程ID 1的栈。
 
-### 2.3 sc
+### 2.3 sc（scan）
 
 * 可以通过 `sc` 命令来查找JVM里已加载的类：
 
@@ -48,7 +46,7 @@ java -jar arthas-boot.jar
   sc -d *MathGame
   ```
 
-### 2.4 jad
+### 2.4 jad（Java Decompiler）
 
 * 可以通过 `jad` 命令来反编译代码：
 
@@ -167,7 +165,7 @@ java -jar arthas-boot.jar --target-ip 0.0.0.0
   sm -d java.math.RoundingMode
   ```
 
-* 也可以查找特定的函数，比如查找构造函数：
+* ·也可以查找特定的函数，比如查找构造函数：
 
   ```sh
   sm java.math.RoundingMode <init>
@@ -178,7 +176,7 @@ java -jar arthas-boot.jar --target-ip 0.0.0.0
 * 可以通过 `jad` 命令来反编译代码：
 
   ```sh
-  jad com.example.demo.arthas.user.UserController
+  a
   ```
 
 * 通过`--source-only`参数可以只打印出在反编译的源代码：
@@ -297,11 +295,11 @@ ognl '@java.lang.System@out.println("hello ognl")'
   watch com.example.demo.arthas.user.UserController * '{params, returnObj}' '#cost>200'
   ```
 
-## 3.6 热更新代码
+### 3.6 热更新代码
 
 通过`jad`/`mc`/`redefine` 命令实现动态更新代码的功能。
 
-### 3.6.1 jad反编译UserController
+#### 3.6.1 jad反编译UserController
 
 * 反编译代码
 
@@ -309,11 +307,11 @@ ognl '@java.lang.System@out.println("hello ognl")'
   jad --source-only com.example.demo.arthas.user.UserController > /tmp/UserController.java
   ```
 
-### 3.6.2 vim修改源代码
+#### 3.6.2 vim修改源代码
 
 * 找到对应的逻辑，修改代码
 
-### 3.6.3 sc查找加载UserController的ClassLoader
+#### 3.6.3 sc查找加载UserController的ClassLoader
 
 * 查找加载该类的ClassLoader
 
@@ -325,7 +323,7 @@ ognl '@java.lang.System@out.println("hello ognl")'
   sc -d *UserController | grep classLoaderHash
   ```
 
-### 3.6.4 mc 编译
+#### 3.6.4 mc 编译
 
 * 保存好`/tmp/UserController.java`之后，使用`mc`(Memory Compiler)命令来编译，并且通过`-c`参数指定ClassLoader：
 
@@ -333,7 +331,7 @@ ognl '@java.lang.System@out.println("hello ognl")'
   mc -c 1be6f5c3 /tmp/UserController.java -d /tmp
   ```
 
-### 3.6.5 redefine 加载编译
+#### 3.6.5 redefine 加载编译
 
 * 再使用`redefine`命令重新加载新编译好的`UserController.class`：
 
@@ -341,18 +339,18 @@ ognl '@java.lang.System@out.println("hello ognl")'
   redefine /tmp/com/example/demo/arthas/user/UserController.class
   ```
 
-## 3.7 动态更新应用Logger Level
+### 3.7 动态更新应用Logger Level
 
 在这个案例里，动态修改应用的Logger Level。
 
-### 3.7.1 查找UserController的ClassLoader
+#### 3.7.1 查找UserController的ClassLoader
 
 ```sh
 sc -d com.example.demo.arthas.user.UserController | grep classLoaderHash
  classLoaderHash   1be6f5c3
 ```
 
-### 3.7.2 用ognl获取logger
+#### 3.7.2 用ognl获取logger
 
 ```
 ognl -c 1be6f5c3 '@com.example.demo.arthas.user.UserController@logger'
@@ -378,7 +376,7 @@ $ ognl -c 1be6f5c3 '@com.example.demo.arthas.user.UserController@logger'
 可以知道UserController@logger实际使用的是logback。可以看到level=null，则说明实际最终的level是从root logger里来的。
 ```
 
-### 3.7.3 单独设置UserController的logger level
+#### 3.7.3 单独设置UserController的logger level
 
 ```sh
 ognl -c 1be6f5c3 '@com.example.demo.arthas.user.UserController@logger.setLevel(@ch.qos.logback.classic.Level@DEBUG)'
@@ -403,7 +401,7 @@ $ ognl -c 1be6f5c3 '@com.example.demo.arthas.user.UserController@logger'
 ]
 ```
 
-### 3.7.4  修改logback的全局logger level
+#### 3.7.4  修改logback的全局logger level
 
 通过获取`root` logger，可以修改全局的logger level：
 
@@ -411,11 +409,11 @@ $ ognl -c 1be6f5c3 '@com.example.demo.arthas.user.UserController@logger'
 ognl -c 1be6f5c3 '@org.slf4j.LoggerFactory@getLogger("root").setLevel(@ch.qos.logback.classic.Level@DEBUG)'
 ```
 
-## 3.8 获取Spring Context
+### 3.8 获取Spring Context
 
 展示获取spring context，再获取bean，然后调用函数。
 
-### 3.8.1 使用tt命令获取到spring context
+#### 3.8.1 使用tt命令获取到spring context
 
 * `tt`即 TimeTunnel，它可以记录下指定方法每次调用的入参和返回信息，并能对这些不同的时间下调用进行观测。
 
@@ -437,7 +435,7 @@ ognl -c 1be6f5c3 '@org.slf4j.LoggerFactory@getLogger("root").setLevel(@ch.qos.lo
          15:38:32     923          se              lerAdapter
   ```
 
-### 3.8.2 使用tt命令从调用记录里获取到spring context
+#### 3.8.2 使用tt命令从调用记录里获取到spring context
 
 *  ```
   tt -i 1000 -w 'target.getApplicationContext()'
@@ -454,13 +452,13 @@ ognl -c 1be6f5c3 '@org.slf4j.LoggerFactory@getLogger("root").setLevel(@ch.qos.lo
   Affect(row-cnt:1) cost in 439 ms.
   ```
 
-### 3.8.3 获取spring bean，并调用函数
+#### 3.8.3 获取spring bean，并调用函数
 
 * ```
   tt -i 1000 -w 'target.getApplicationContext().getBean("helloWorldService").getHelloMessage()'
   ```
 
-## 3.9 排查HTTP请求返回401
+### 3.9 排查HTTP请求返回401
 
 * 我们知道`401`通常是被权限管理的`Filter`拦截了，那么到底是哪个`Filter`处理了这个请求，返回了401
 
@@ -498,11 +496,11 @@ ognl -c 1be6f5c3 '@org.slf4j.LoggerFactory@getLogger("root").setLevel(@ch.qos.lo
 
 * 就可以看到方法栈了
 
-## 3.10 排查HTTP请求返回404
+### 3.10 排查HTTP请求返回404
 
 404是内容找不到。那么到底是哪个Servlet处理了这个请求，返回了404？
 
-### 3.10.1 跟踪所有的Servlet函数
+#### 3.10.1 跟踪所有的Servlet函数
 
 * 开始trace：
 
@@ -513,9 +511,9 @@ ognl -c 1be6f5c3 '@org.slf4j.LoggerFactory@getLogger("root").setLevel(@ch.qos.lo
 * 发送请求
 * 查看servlet日志数据
 
-## 3.11 理解Spring Boot应用的ClassLoader结构
+#### 3.11 理解Spring Boot应用的ClassLoader结构
 
-## 3.12 查找Top N线程
+### 3.12 查找Top N线程
 
 * 查看所有线程信息
 
@@ -549,16 +547,16 @@ thread -n 3 -i 5000
 thread -b
 ```
 
-## 3.13 Web Console
+### 3.13 Web Console
 
 * Arthas支持通过Web Socket来连接。
 * 当在本地启动时，可以访问 http://127.0.0.1:8563/ ，通过浏览器来使用Arthas。
 
-## 3.14 arthas-boot支持的参数
+### 3.14 arthas-boot支持的参数
 
 `arthas-boot.jar` 支持很多参数，可以执行 `java -jar arthas-boot.jar -h` 来查看。
 
-### 3.14.1 允许外部访问
+#### 3.14.1 允许外部访问
 
 默认情况下， arthas server侦听的是 `127.0.0.1` 这个IP，如果希望远程可以访问，可以使用`--target-ip`的参数。
 
@@ -566,7 +564,7 @@ thread -b
 java -jar arthas-boot.jar --target-ip
 ```
 
-### 3.14.2 列出所有的版本
+#### 3.14.2 列出所有的版本
 
 ```
 java -jar arthas-boot.jar --versions
@@ -578,14 +576,46 @@ java -jar arthas-boot.jar --versions
 java -jar arthas-boot.jar --use-version 3.1.0
 ```
 
-### 3.14.3 只侦听Telnet端口，不侦听HTTP端口
+#### 3.14.3 只侦听Telnet端口，不侦听HTTP端口
 
 ```
 java -jar arthas-boot.jar --telnet-port 9999 --http-port -1
 ```
 
-### 3.14.4 打印运行的详情
+#### 3.14.4 打印运行的详情
 
 ```
 java -jar arthas-boot.jar -v
 ```
+
+
+
+# 四、工具使用
+
+在前面我们看了Arthas的命令行使用，确实可以在生产环境下排查问题，也有插件可以让我们使用arthas更加方便：安装两个插件“arthas idea” 和 “ArthasHotSwap”，IDEA可以直接安装使用。
+
+* “arthas idea”是为了高效率生成Arthas命令。
+* “ArthasHotSwap”可以实现简单快捷的热部署。
+
+
+
+### 4.1 arthas idea
+
+在Idea方法、类上面右键可以快速生成arthas命令并复制到粘贴板中
+
+![image-20210428163726493](http://img.hurenjieee.com/uPic/image-20210428163726493.png)
+
+其中功能介绍
+
+![img](http://img.hurenjieee.com/uPic/77851010-fa211b80-7208-11ea-909c-e4a208f282f6-20210428163148024.png)
+
+
+
+### 4.2 ArthasHotSwap
+
+Arthas热部署工具，生成热部署脚本并在粘贴板中，在arthas上执行即可。
+
+![image-20210428165553451](http://img.hurenjieee.com/uPic/image-20210428165553451.png)
+
+
+
