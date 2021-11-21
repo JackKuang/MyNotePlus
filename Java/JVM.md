@@ -194,7 +194,7 @@ a = 0 ;
 
 ### 4.2 本地接口
 
-* 本地接口的作用是融合不同的编程语言为Java所用，他的初衷是融合C/C++程序，Java诞生的时候是C/C++横行的时候，想要立足，必须有屌用C/C++程序，于是就在内存中专门开辟了一块区域处理标记为native的代码，他的具体做法是Native Method Stack中登记native方法，在Execution Engine执行时加载native libraries
+* 本地接口的作用是融合不同的编程语言为Java所用，他的初衷是融合C/C++程序，Java诞生的时候是C/C++横行的时候，想要立足，必须有调用C/C++程序，于是就在内存中专门开辟了一块区域处理标记为native的代码，他的具体做法是Native Method Stack中登记native方法，在Execution Engine执行时加载native libraries
 
 ### 4.3 程序计数器/PC寄存器
 

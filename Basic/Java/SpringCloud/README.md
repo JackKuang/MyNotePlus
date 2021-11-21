@@ -284,9 +284,9 @@ Hystrix是一个用于处理分布式系统的延迟和容错的开源库，在�
 
 
 
-## 9.2 重要概念
+### 9.2 重要概念
 
-### 9.2.1 服务降级-fallback
+#### 9.2.1 服务降级-fallback
 
 **服务器忙，清稍后重试，不让客户端等待并立刻返回一个友好提示。**
 
@@ -306,7 +306,7 @@ public String paymentTimeout(Long id) {
 }
 ```
 
-### 9.2.2 服务熔断-break
+#### 9.2.2 服务熔断-break
 
 **达到最大服务访问后，直接拒绝访问，然后调用服务降级的方法返回友好提示。**
 
@@ -345,7 +345,7 @@ public String paymentCircuitBreaker(Long id) {
 
 
 
-## 9.3 流程图
+### 9.3 流程图
 
 https://github.com/Netflix/Hystrix/wiki/How-it-Works
 
@@ -360,4 +360,29 @@ https://github.com/Netflix/Hystrix/wiki/How-it-Works
 7. [Calculate Circuit Health](https://github.com/Netflix/Hystrix/wiki/How-it-Works#flow7)
 8. [Get the Fallback](https://github.com/Netflix/Hystrix/wiki/How-it-Works#flow8)
 9. [Return the Successful Response](https://github.com/Netflix/Hystrix/wiki/How-it-Works#flow9)
+
+
+
+### 9.4 HystrixDashboard
+
+除了隔离依赖服务的调用以外，Hystrix还提供了**准实时的调用监控（Hystrix Dashboard）**，Hystrix回持续地记录所有通过Hystrix发起的请求的执行信息，并以报表和图形的形式展示给用户，包括每秒执行多少请求、多少成功、多少失败等。Netflix通过hystrix-metrics-event-stream项目实现了对以上指标的监控。Spring Cloud也提供了Hystrix Dashboard的整合，对监控内容转化成可视化界面。
+
+![image-20211027113535703](../../../../../../Library/Application%20Support/typora-user-images/image-20211027113535703.png)
+
+被监听服务地址如果404，则需要增加以下配置：
+
+```java
+
+    @Bean
+    public ServletRegistrationBean getServlet() {
+        HystrixMetricsStreamServlet streamServlet = new HystrixMetricsStreamServlet();
+        ServletRegistrationBean registrationBean = new ServletRegistrationBean(streamServlet);
+        registrationBean.setLoadOnStartup(1);
+        registrationBean.addUrlMappings("/hystrix.stream");
+        registrationBean.setName("HystrixMetricsStreamServlet");
+        return registrationBean;
+    }
+```
+
+![image-20211027113810444](http://img.hurenjieee.com/uPic/image-20211027113810444.png)
 
