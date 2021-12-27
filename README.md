@@ -73,6 +73,8 @@
 | Java中如何动态创建接口的实现 | [Proxy](./Java/Proxy.md)                                     | 2020-10-20 |
 | Oracle JDBC连接问题          | [连接异常](./Java/OracleJdbcConnectionError.md)              | 2020-12-21 |
 | Arthas                       | [Java调试利器Arthas](./Java/Arthas/Arthas.md)                | 2020-12-24 |
+| 常用日志框架                 | [常用日志框架](./Java/log.md)                                | 2021-12-21 |
+| 分布式事务                   | [分布式事务](./Java/DistributedTransaction.md)               | 2021-12-27 |
 
 ### 数据库
 

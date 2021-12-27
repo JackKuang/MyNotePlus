@@ -381,6 +381,3 @@ ClickHouse 提供了丰富的工具集来处理实时更新，如 ReplacingMerge
 > Mac-Docker
 > 2 GHz 四核Intel Core i5
 > 16 GB
-
-整体测试性能并不佳，后续切换服务器试下。
-
