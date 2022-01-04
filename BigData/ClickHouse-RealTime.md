@@ -215,7 +215,7 @@ WHERE tenant_id=455 AND NOT acked;
 > ack_time: 0 => now()
 > ack_user: ‘’ => ‘user1’
 
-因此，我可以可以吧argMax修改为max函数，alert_data可以使用any函数。因此我可以改造为如下：
+因此，我可以把argMax修改为max函数，alert_data可以使用any函数。因此我可以改造为如下：
 
 ```sh
 314d64507090 :) SELECT count(), sum(cityHash64(*)) data FROM (
