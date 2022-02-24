@@ -6,7 +6,7 @@
 
 * 出身计算机科学，却有愧于计算机科学。工作这几年之后，很多的基础理论只是都已经是忘光了，过去以前的笔记也无从查找。以至虽是计算机专业出身，却无无法证明自己。
 * 前段时间出去面试，结果很多面试题都已经忘得差不多了，网上很多面试资料（这里推荐Github上比较火的资料集锦[JavaGuide](https://github.com/Snailclimb/JavaGuide)）。记忆不够深刻，导致很难回答出来问题，很是尴尬。虽然不喜欢背这些面试题，但是现实就是如此，题都背不出来怎么跟别人比。虽然工作用不到这些面试题，但是工作就是有这些原理才能更好的开发。
-* 以前整理大部分的资源[笔记MyNote](https://github.com/JackKuang/MyNote)和[大数据BigData](https://github.com/JackKuang/BigData)，大部分是拷贝来自网上的技术总结，虽然是理论知识都是存在的，但是由于是拷贝的，很大一部分知识点记忆不够深刻。
+* 结合以前整理大部分的资源[笔记MyNote](https://github.com/JackKuang/MyNote)和[大数据BigData](https://github.com/JackKuang/BigData)，大部分是拷贝来自网上的技术总结，虽然是理论知识都是存在的，但是由于是拷贝的，很大一部分知识点记忆不够深刻。
 * 所以打算重新创建一个repository，且有以下几个约定：
   * 会从基础只是开始，再到后面的Java开发、大数据开发相关，后面的主要是工作相关的内容。
   * 笔记的形式以全手打为主，拒绝拷贝文字（手打一遍加深理解）。
@@ -19,7 +19,7 @@
 
 | 内容         | 地址                                              | 完成日期   |
 | ------------ | ------------------------------------------------- | ---------- |
-| Netty        | [Netty](./Basic/Java/Netty/README.md)             | PAUSE      |
+| Netty        | [Netty](./Basic/Java/Netty/README.md)             | NIO完成    |
 | SpringClould | [SpringCloud](./Basic/Java/SpringCloud/README.md) | DOING      |
 | 设计模式     | 参考OneDrive中Excel和Xmind                        | 2021-10-26 |
 
@@ -63,7 +63,6 @@
 | 数据结构【树】               | [树](./Java/Tree.md)                                         | 2020-09-08 |
 | 算法【排序】                 | [排序算法](./Java/SortAlgorithm.md)                          | 2020-09-12 |
 | SpringBoot高并发(undertow)   | [undertow](https://examples.javacodegeeks.com/enterprise-java/spring/tomcat-vs-jetty-vs-undertow-comparison-of-spring-boot-embedded-servlet-containers/) | 2021-11-30 |
-| Java并发                     |                                                              |            |
 | BIO/NIO/AIO                  | [IO](./Java/IO.md)                                           | 2020-09-10 |
 | volatile和synchronized特点   | [volatile和synchronized特点](./Java/VolatileAndSynchronized.md) | 2020-09-03 |
 | 锁                           | [锁](./Java/Lock.md)                                         | 202-09-10  |
@@ -75,6 +74,7 @@
 | Arthas                       | [Java调试利器Arthas](./Java/Arthas/Arthas.md)                | 2020-12-24 |
 | 常用日志框架                 | [常用日志框架](./Java/log.md)                                | 2021-12-21 |
 | 分布式事务                   | [分布式事务](./Java/DistributedTransaction.md)               | 2021-12-27 |
+| Java中替换if用法             | [Java中替换if用法](./Java/ReplaceIfStatement.md)             | 2022-02-24 |
 
 ### 数据库
 
@@ -102,19 +102,9 @@
 | ClickHouse非相等连接-ASOF   | [ClickHouse-ASOF](./BigData/ClickHouse-ASOF.md)              | 2021-11-18 |
 | ClickHouse 中处理实时更新   | [ClickHouse-RealTime](./BigData/ClickHouse-RealTime.md)      | 2021-12-10 |
 
+## 思考
 
-### 数据处理方案
-
-| 内容                  | 简介                                            | 地址 | 完成日期 |
-| --------------------- | ----------------------------------------------- | ---- | -------- |
-| SpringBoot高并发      | 如何提高Web的高并发请求？                       |      |          |
-| Kafka数据延迟处理方案 | 线上事故导致Kafka消费延迟，如何快速消费并恢复？ |      | TBD      |
-| Flink CEP             |                                                 |      |          |
-
-### 技术文档
-
-| 内容         | 简介 | 地址                               | 完成日期 |
-| ------------ | ---- | ---------------------------------- | -------- |
-| 领域驱动设计 |      | [领域驱动设计](./Documents/DDD.md) | TBD      |
-|              |      |                                    |          |
-|              |      |                                    |          |
+| 内容                 | 地址                                                    | 完成日期   |
+| -------------------- | ------------------------------------------------------- | ---------- |
+| 复杂场景下的开发想法 | [复杂场景下的开发想法](Think/DevelopInComplexScence.md) | 2022-01-27 |
+|                      |                                                         |            |

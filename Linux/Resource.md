@@ -20,6 +20,7 @@ Swap:             0           0           0
 Mem:           983M        743M         63M        712K        176M        104M
 Swap:            0B          0B          0B
 ```
+
 * total
 
 > 总共物理内存
@@ -742,7 +743,6 @@ jhat -port 4000 heapdump
 * jinfo 可以用来看正在运行的java运行程序的扩展参数，甚至支持在运行时动态地更改部分参数。
 
 ```sh
-
 jenkins@ac1a28c8678d:~$ jinfo 6
 Attaching to process ID 6, please wait...
 Debugger attached successfully.

@@ -57,7 +57,13 @@ mysql> EXPLAIN SELECT * FROM good WHERE id IN (SELECT good_id FROM `order`);
 
 ## 2.3 table
 
-显示这一行的数据是关于哪张表的。有时不是真实的表名字,看到的是derivedx(x是个数字,我的理解是第几步执行的结果)或者subquery。
+显示这一行的数据是关于哪张表的。有时不是真实的表名字。分为一下三种情况：
+
+1. <union**M**,**N**>：连表
+2. <dervied**N**>：派生表的SELECT，生成临时表
+3. <subquery**N**>：子查询
+
+上述的M、N都是指的是id为该数据的查询。
 
 ## 2.4 partitions
 
@@ -70,8 +76,8 @@ mysql> EXPLAIN SELECT * FROM good WHERE id IN (SELECT good_id FROM `order`);
 2. **index**：Full Index Scan，索引全扫描，index与ALL区别为index类型只遍历索引树
 3. **range**：索引范围扫描，只检索给定范围的行，使用一个索引来选择行，常用语<,<=,>=,between等操作。
 4. **ref**：使用非唯一索引扫描或者唯一索引前缀扫描，返回单条记录，常出现在关联查询中
-5. **eq_ref**：类似ref，区别就是使用的索引的唯一索引，对于每个索引键值，表中只有一条记录匹配；简单来说，就是夺标连接中使用primary key或者unique key作为关联条件。
-6. **const、system**：单挑记录，系统会把匹配行中的其他键作为常数处理，如主键或唯一索引查询
+5. **eq_ref**：类似ref，区别就是使用的索引的唯一索引，对于每个索引键值，表中只有一条记录匹配；简单来说，就是多表连接中使用primary key或者unique key作为关联条件。
+6. **const、system**：单条记录，系统会把匹配行中的其他键作为常数处理，如主键或唯一索引查询
 7. **NULL**:Mysql不访问任何表或索引，直接返回结果。
 
 ## 2.6 possible_keys
