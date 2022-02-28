@@ -153,4 +153,143 @@ enum OperationEnums {
 
 在这个案例中，我们看到了把判断的逻辑委托给不同的枚举属性，以此减少了逻辑判断。
 
-## 3.3
+## 3.3 命令行模式
+
+```java
+
+public class CaseStudyCommand {
+
+    public static void main(String[] args) {
+        System.out.println(calculateWithCommand(new AddCommand(1, 2)));
+    }
+
+    private static int calculateWithCommand(Command command) {
+        return command.execute();
+    }
+
+}
+
+interface Command {
+    int execute();
+}
+
+class AddCommand implements Command {
+
+    private int a;
+    private int b;
+
+    public AddCommand(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    @Override
+    public int execute() {
+        return a + b;
+    }
+}
+
+class SubtractCommand implements Command {
+
+    private int a;
+    private int b;
+
+    public SubtractCommand(int a, int b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    @Override
+    public int execute() {
+        return a - b;
+    }
+}
+```
+
+前面的例子里，我们可以看到使用了国内工厂模式根据不同的操作来处理不同的业务逻辑对象，由业务逻辑对象来计算。同样也可以吧计算逻辑封装到一起。这也是一种替换if语句的方式。
+
+## 3.3 规则引擎
+
+当我们每个if条件下都需要写庞大的业务代码时，需要进行特定的判断之后才能执行业务逻辑。
+通过规则引擎可以在主核心代码中消除业务中判断的复杂性，主核心代码只要判断规则并根据输入返回结果。
+
+```java
+t java.util.*;
+
+public class CaseStudyRule {
+
+    public static void main(String[] args) {
+        System.out.println(calculateWithRule(1, 2, RuleOperator.add));
+    }
+
+    private static int calculateWithRule(int a, int b, RuleOperator operator) {
+        return RuleEngine.process(new Expression(a, b, operator));
+    }
+
+}
+
+class Expression {
+    Integer x;
+    Integer y;
+    RuleOperator operator;
+
+    public Expression(Integer x, Integer y, RuleOperator operator) {
+        this.x = x;
+        this.y = y;
+        this.operator = operator;
+    }
+}
+
+enum RuleOperator {
+    add,
+    subtract;
+}
+
+interface Rule {
+    boolean evaluate(Expression expression);
+
+    int getResult();
+}
+
+class AddRule implements Rule {
+
+    private int result;
+
+    @Override
+    public boolean evaluate(Expression expression) {
+        if (expression.operator == RuleOperator.add) {
+            this.result = expression.x + expression.y;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public int getResult() {
+        return this.result;
+    }
+}
+
+class RuleEngine {
+    private static List<Rule> rules = new ArrayList<>();
+
+    static {
+        rules.add(new AddRule());
+    }
+
+    public static int process(Expression expression) {
+        Rule rule = rules.stream()
+                .filter(item -> item.evaluate(expression))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("not suppport"));
+        return rule.getResult();
+    }
+
+}
+```
+
+# 四、结论
+
+减少if语法可以大大降低软件复杂度、提高可维护性。
+
+建议使用**枚举方法**实现。
