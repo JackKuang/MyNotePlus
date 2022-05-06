@@ -75,6 +75,7 @@
 | 常用日志框架                 | [常用日志框架](./Java/log.md)                                | 2021-12-21 |
 | 分布式事务                   | [分布式事务](./Java/DistributedTransaction.md)               | 2021-12-27 |
 | Java中替换if用法             | [Java中替换if用法](./Java/ReplaceIfStatement.md)             | 2022-02-24 |
+| Maven命令详解                | [Maven命令详解](./Java/MavenCommand.md)                      | 2022-05-06 |
 
 ### 数据库
 
@@ -101,6 +102,8 @@
 | ClickHouse集群解决方案      | [ClickHouse集群](./BigData/ClickHouse-Cluster.md)            | 2021-04-26 |
 | ClickHouse非相等连接-ASOF   | [ClickHouse-ASOF](./BigData/ClickHouse-ASOF.md)              | 2021-11-18 |
 | ClickHouse 中处理实时更新   | [ClickHouse-RealTime](./BigData/ClickHouse-RealTime.md)      | 2021-12-10 |
+| ClickHouse向量化引擎        | [ClickHouse-Vectorized](./BigData/ClickHouse-Vectorized.md)  | 2022-04-13 |
+| 搭建Zeppelin本地开发环境    | [搭建Zeppelin本地开发环境](./BigData/BuildZeppelin.md)       | 2022-05-06 |
 
 ## 思考
 
