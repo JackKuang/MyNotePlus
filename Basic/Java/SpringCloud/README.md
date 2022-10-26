@@ -90,7 +90,7 @@
 
     > Bus：❌
     >
-    > Necos：✅
+    > Nacos：✅
 
 英文文档
 
@@ -377,5 +377,3 @@ https://github.com/Netflix/Hystrix/wiki/How-it-Works
 ```
 
 ![image-20211027113810444](http://img.hurenjieee.com/uPic/image-20211027113810444.png)
-
-# 十、

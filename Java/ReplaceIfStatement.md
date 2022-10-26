@@ -288,6 +288,44 @@ class RuleEngine {
 }
 ```
 
+## 3.4 使用Optional
+
+在代码中，我可能需要写这样的代码
+
+```java
+String name=school.getGrades().getStuendt().getName();
+```
+
+这样的代码，很容易就会导致NPE，因此我们可以改写成
+
+```java
+String name=null;
+if(school!=null){
+    Grades grade=school.getGrades();
+    if(grade!=null){
+        Student student=grade.getStuendt();
+        if(student!=null){
+          name = student.getName();
+        }
+    }
+}
+```
+
+但是面临着if，代码非常不优雅，使用jdk1.8新特性Optional 类来优化：
+
+```
+String name = Optional.ofNullable(school)
+  .flatMap(School::getGrades)
+  .flatMap(Grades::getStuendt)
+  .map(Student::getName)
+  .orElse(null);
+```
+
+flatMap：接受一个返回值为Optional的映射函数参数,该返回值亦是flatMap方法的返回值
+map：接受一个映射函数参数，返回一个被Optional包装的结果。若结果为空，则返回 空Optional
+
+
+
 # 四、结论
 
 减少if语法可以大大降低软件复杂度、提高可维护性。

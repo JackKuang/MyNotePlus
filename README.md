@@ -19,8 +19,8 @@
 
 | 内容         | 地址                                              | 完成日期   |
 | ------------ | ------------------------------------------------- | ---------- |
-| Netty        | [Netty](./Basic/Java/Netty/README.md)             | NIO完成    |
-| SpringClould | [SpringCloud](./Basic/Java/SpringCloud/README.md) | DOING      |
+| Netty        | [Netty](./Basic/Java/Netty/README.md)             | 2022-10-08 |
+| SpringClould | [SpringCloud](./Basic/Java/SpringCloud/README.md) | 2022-10-09 |
 | 设计模式     | 参考OneDrive中Excel和Xmind                        | 2021-10-26 |
 
 ### 大数据
@@ -107,8 +107,9 @@
 
 ## 思考
 
-| 内容                             | 地址                                                         | 完成日期   |
-| -------------------------------- | ------------------------------------------------------------ | ---------- |
-| 复杂场景下的开发想法             | [复杂场景下的开发想法](Think/DevelopInComplexScence.md)      | 2022-03-02 |
-| 关于质量标准化的思考和实践       | [关于质量标准化的思考和实践](./Think/QualityStandard.md)     | 2022-03-03 |
-| 关于临近发布就出问题的思考与改进 | [关于临近发布就出问题的思考与改进](./Think/DeployWithWrong.md) | 2022-05-11 |
+| 内容                       | 地址                                                     | 完成日期   |
+| -------------------------- | -------------------------------------------------------- | ---------- |
+| 复杂场景下的开发想法       | [复杂场景下的开发想法](Think/DevelopInComplexScence.md)  | 2022-03-02 |
+| 关于质量标准化的思考和实践 | [关于质量标准化的思考和实践](./Think/QualityStandard.md) | 2022-03-03 |
+| 缓存设计-查询              | [缓存设计-查询](./Think/DesignCache-Query.md)            | 2022-07-19 |
+| 数据权限的设计             | [数据权限的设计](./Think/dataPermission.md)              | 2022-10-09 |
